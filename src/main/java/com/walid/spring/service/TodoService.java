@@ -11,6 +11,11 @@ import java.util.stream.Collectors;
 @Service
 public class TodoService {
     private static List<Todo> todos = new ArrayList<>();
+
+    public static int getTodoCount() {
+        return todoCount;
+    }
+
     private static int todoCount = 3;
 
     static {
