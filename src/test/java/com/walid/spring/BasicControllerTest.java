@@ -2,11 +2,13 @@ package com.walid.spring;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -33,10 +35,23 @@ public class BasicControllerTest {
     @Test
     public void welcome() throws Exception {
         mvc.perform(
-                MockMvcRequestBuilders.get("/welcome/Walid")
+                MockMvcRequestBuilders.get("/welcome/name/Walid")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("Welcome Walid!"))
                 );
+    }
+
+    @Test
+    public void welcomeWithBean() throws Exception {
+        MvcResult mvcResult = mvc.perform(
+                MockMvcRequestBuilders.get("/welcome/object/name/Walid")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String expected = "{\"message\": \"Welcome Walid!\"}";
+
+        JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
     }
 }

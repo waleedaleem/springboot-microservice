@@ -9,8 +9,13 @@ import java.util.Optional;
 @RestController
 public class BasicController {
 
-    @GetMapping({"/welcome/{name}", "/welcome"})
+    @GetMapping({"/welcome/name/{name}", "/welcome"})
     public String welcome(@PathVariable(value = "name", required = false) Optional<String> name) {
         return String.format("Welcome %s!", name.orElse("World"));
+    }
+
+    @GetMapping(value = "/welcome/object/name/{name}")
+    public WelcomeBean welcomeWithBean(@PathVariable("name") String name) {
+        return new WelcomeBean(String.format("Welcome %s!", name));
     }
 }

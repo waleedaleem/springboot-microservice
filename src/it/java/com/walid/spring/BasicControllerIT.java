@@ -1,7 +1,9 @@
 package com.walid.spring;
 
+import org.json.JSONException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -24,8 +26,17 @@ public class BasicControllerIT {
 
     @Test
     public void welcome() {
-        ResponseEntity<String> response = template.getForEntity(createURL("/welcome/Walid"), String.class);
+        ResponseEntity<String> response = template.getForEntity(createURL("/welcome/name/Walid"), String.class);
         assertThat(response.getBody(), equalTo("Welcome Walid!"));
+    }
+
+    @Test
+    public void welcomeWithBean() throws JSONException {
+        ResponseEntity<String> response = template.getForEntity(createURL("/welcome/object/name/Walid"), String.class);
+
+        String expected = "{\"message\": \"Welcome Walid!\"}";
+
+        JSONAssert.assertEquals(expected, response.getBody(), false);
     }
 
     private String createURL(String uri) {
