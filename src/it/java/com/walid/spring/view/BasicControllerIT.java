@@ -1,5 +1,6 @@
-package com.walid.spring;
+package com.walid.spring.view;
 
+import com.walid.spring.SpringBootMicroserviceApplication;
 import org.json.JSONException;
 import org.junit.Test;
 import org.junit.runner.RunWith;

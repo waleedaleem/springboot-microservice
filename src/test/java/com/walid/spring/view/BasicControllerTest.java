@@ -1,5 +1,6 @@
-package com.walid.spring;
+package com.walid.spring.view;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -10,10 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(BasicController.class)
@@ -27,8 +25,8 @@ public class BasicControllerTest {
         mvc.perform(
                 MockMvcRequestBuilders.get("/welcome")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Welcome World!"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("Welcome World!"))
                 );
     }
 
@@ -37,8 +35,8 @@ public class BasicControllerTest {
         mvc.perform(
                 MockMvcRequestBuilders.get("/welcome/name/Walid")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Welcome Walid!"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("Welcome Walid!"))
                 );
     }
 
@@ -47,7 +45,7 @@ public class BasicControllerTest {
         MvcResult mvcResult = mvc.perform(
                 MockMvcRequestBuilders.get("/welcome/object/name/Walid")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
         String expected = "{\"message\": \"Welcome Walid!\"}";

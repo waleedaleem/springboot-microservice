@@ -1,4 +1,4 @@
-package com.walid.spring;
+package com.walid.spring.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
