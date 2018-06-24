@@ -11,6 +11,6 @@ public class BasicController {
 
     @GetMapping({"/welcome/{name}", "/welcome"})
     public String welcome(@PathVariable(value = "name", required = false) Optional<String> name) {
-        return String.format("Hello %s!", name.orElse("World"));
+        return String.format("Welcome %s!", name.orElse("World"));
     }
 }
