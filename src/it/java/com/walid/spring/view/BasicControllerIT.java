@@ -2,9 +2,11 @@ package com.walid.spring.view;
 
 import com.walid.spring.SpringBootMicroserviceApplication;
 import org.json.JSONException;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -23,7 +25,18 @@ public class BasicControllerIT {
     @LocalServerPort
     private int port;
 
-    private TestRestTemplate template = new TestRestTemplate();
+    @Value("${spring.security.user.name}")
+    private String username;
+
+    @Value("${spring.security.user.password}")
+    private String password;
+
+    private TestRestTemplate template;
+
+    @Before
+    public void setUp() throws Exception {
+        template = new TestRestTemplate(username, password);
+    }
 
     @Test
     public void welcome() {

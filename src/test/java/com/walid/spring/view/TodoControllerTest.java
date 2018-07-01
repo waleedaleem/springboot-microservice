@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(TodoController.class)
+@WebMvcTest(value = TodoController.class, secure = false)
 public class TodoControllerTest {
 
     @Autowired

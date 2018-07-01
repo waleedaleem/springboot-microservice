@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(BasicController.class)
+@WebMvcTest(value = BasicController.class, secure = false)
 public class BasicControllerTest {
 
     @Autowired
